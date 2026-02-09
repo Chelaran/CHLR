@@ -1,4 +1,4 @@
-module github.com/bambutcha/chlr
+module github.com/Chelaran/CHLR
 
 go 1.25.3
 

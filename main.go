@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bambutcha/chlr/cmd"
+	"github.com/Chelaran/CHLR/cmd"
 	"github.com/spf13/cobra"
 )
 

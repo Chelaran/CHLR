@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/bambutcha/chlr/internal/generator"
+	"github.com/Chelaran/CHLR/internal/generator"
 	"github.com/spf13/cobra"
 )
 

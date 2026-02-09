@@ -17,7 +17,7 @@
 ### 🛠 Установка
 
 ```bash
-go install github.com/bambutcha/chlr@latest
+go install github.com/Chelaran/CHLR@latest
 ```
 
 ### 📚 Использование
@@ -36,8 +36,8 @@ chlr init my-platform --mono --db=postgres
 ### 🏗 Локальная сборка
 
 ```bash
-git clone https://github.com/bambutcha/chlr.git
-cd chlr
+git clone https://github.com/Chelaran/CHLR.git
+cd CHLR
 go build -o chlr .
 ```
 

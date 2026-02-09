@@ -14,15 +14,15 @@
 ### Из бинарника (рекомендуется)
 
 ```bash
-go install github.com/bambutcha/chlr@latest
+go install github.com/Chelaran/CHLR@latest
 ```
 
 ### Локальная сборка из исходников
 
 ```bash
 # Клонируйте репозиторий
-git clone https://github.com/bambutcha/chlr.git
-cd chlr
+git clone https://github.com/Chelaran/CHLR.git
+cd CHLR
 
 # Соберите проект
 go build -o chlr .
