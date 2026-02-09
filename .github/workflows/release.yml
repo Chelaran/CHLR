@@ -72,15 +72,17 @@ jobs:
         with:
           path: artifacts
 
+      - name: Prepare release files
+        run: |
+          mkdir -p release
+          find artifacts -type f -name "chlr-*" -exec cp {} release/ \;
+          ls -la release/
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            artifacts/chlr-linux-amd64
-            artifacts/chlr-linux-arm64
-            artifacts/chlr-darwin-amd64
-            artifacts/chlr-darwin-arm64
-            artifacts/chlr-windows-amd64.exe
+          files: release/*
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
