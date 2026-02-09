@@ -36,6 +36,17 @@ chmod +x chlr
 sudo mv chlr /usr/local/bin/
 ```
 
+**Пример для Windows (PowerShell):**
+```powershell
+# Скачать
+Invoke-WebRequest -Uri "https://github.com/Chelaran/CHLR/releases/latest/download/chlr-windows-amd64.exe" -OutFile "chlr.exe"
+
+# Использовать
+.\chlr.exe --version
+```
+
+**Подробная инструкция для Windows:** см. [WINDOWS_INSTALL.md](WINDOWS_INSTALL.md)
+
 ### Установка через Go (для разработчиков)
 
 Если у вас установлен Go:
