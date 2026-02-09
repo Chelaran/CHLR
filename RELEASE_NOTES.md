@@ -17,7 +17,7 @@
 ### 🛠 Установка
 
 ```bash
-go install github.com/Chelaran/CHLR@latest
+go install github.com/Chelaran/CHLR/cmd/chlr@latest
 ```
 
 ### 📚 Использование
@@ -33,17 +33,24 @@ chlr init my-app --db=postgres
 chlr init my-platform --mono --db=postgres
 ```
 
+### 📦 Скачать готовый бинарник
+
+Перейдите на [страницу релизов](https://github.com/Chelaran/CHLR/releases/latest) и скачайте бинарник для вашей платформы:
+- Linux (amd64/arm64)
+- macOS (amd64/arm64)
+- Windows (amd64)
+
 ### 🏗 Локальная сборка
 
 ```bash
 git clone https://github.com/Chelaran/CHLR.git
 cd CHLR
-go build -o chlr .
+go build -o chlr ./cmd/chlr
 ```
 
 ### 📋 Требования
 
-- Go 1.25.3 или выше
+- Go 1.21 или выше
 
 ### 🔗 Ссылки
 
