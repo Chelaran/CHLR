@@ -6,11 +6,15 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build for ${{ matrix.os }}-${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
@@ -54,12 +58,14 @@ jobs:
           CGO_ENABLED: 0
         run: |
           go build -ldflags="-s -w" -o ${{ matrix.artifact }} ./cmd/chlr
+          ls -lh ${{ matrix.artifact }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact }}
           path: ${{ matrix.artifact }}
+          retention-days: 7
 
   release:
     name: Create Release
@@ -67,22 +73,45 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Download all artifacts
+      - name: Download Linux amd64
         uses: actions/download-artifact@v4
         with:
-          path: artifacts
+          name: chlr-linux-amd64
+          path: release
 
-      - name: Prepare release files
+      - name: Download Linux arm64
+        uses: actions/download-artifact@v4
+        with:
+          name: chlr-linux-arm64
+          path: release
+
+      - name: Download macOS amd64
+        uses: actions/download-artifact@v4
+        with:
+          name: chlr-darwin-amd64
+          path: release
+
+      - name: Download macOS arm64
+        uses: actions/download-artifact@v4
+        with:
+          name: chlr-darwin-arm64
+          path: release
+
+      - name: Download Windows amd64
+        uses: actions/download-artifact@v4
+        with:
+          name: chlr-windows-amd64.exe
+          path: release
+
+      - name: List release files
         run: |
-          mkdir -p release
-          find artifacts -type f -name "chlr-*" -exec cp {} release/ \;
-          ls -la release/
+          ls -lh release/
+          chmod +x release/chlr-linux-* release/chlr-darwin-*
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: release/*
           generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          draft: false
+          prerelease: false
