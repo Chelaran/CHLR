@@ -76,15 +76,26 @@ func Generate(cfg Config) error {
 
 func generateFile(tmplPath, targetPath string, data Config) error {
 	// Читаем шаблон из embed FS
-	// tmplPath уже содержит "templates/", но в embed FS путь будет "templates/..."
-	// Нужно убрать префикс "templates/" из пути для чтения из embed
+	// tmplPath содержит "templates/go.mod.tmpl", но в embed FS файлы находятся без префикса "templates/"
+	// embed.FS в templates/templates.go использует //go:embed *, поэтому пути: go.mod.tmpl, main.go.tmpl и т.д.
 	embedPath := strings.TrimPrefix(tmplPath, "templates/")
-	content, err := data.TemplatesFS.ReadFile("templates/" + embedPath)
+
+	// Пробуем разные варианты путей
+	var content []byte
+	var err error
+
+	// Вариант 1: без префикса templates/ (правильный для embed)
+	content, err = data.TemplatesFS.ReadFile(embedPath)
 	if err != nil {
-		// Попробуем прочитать по полному пути
+		// Вариант 2: с префиксом templates/ (на случай если структура другая)
 		content, err = data.TemplatesFS.ReadFile(tmplPath)
 		if err != nil {
-			return fmt.Errorf("read template error %s: %w", tmplPath, err)
+			// Вариант 3: только имя файла
+			content, err = data.TemplatesFS.ReadFile(filepath.Base(tmplPath))
+			if err != nil {
+				return fmt.Errorf("read template error %s (tried: %s, %s, %s): %w",
+					tmplPath, embedPath, tmplPath, filepath.Base(tmplPath), err)
+			}
 		}
 	}
 
