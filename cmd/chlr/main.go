@@ -15,7 +15,7 @@ var rootCmd = &cobra.Command{
 	Long: `CHLR (Chelaran CLI) — инструмент скаффолдинга и автоматизации разработки 
 Full-Cycle проектов. Генерирует production-ready архитектуру, соответствующую 
 инженерным стандартам агентства Chelaran.`,
-	Version: "0.1.2",
+	Version: "0.1.3",
 }
 
 func main() {
