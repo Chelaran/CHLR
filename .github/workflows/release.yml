@@ -56,9 +56,10 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 0
+        shell: bash
         run: |
           go build -ldflags="-s -w" -o ${{ matrix.artifact }} ./cmd/chlr
-          ls -lh ${{ matrix.artifact }}
+          ls -lh ${{ matrix.artifact }} || dir ${{ matrix.artifact }} || echo "File created: ${{ matrix.artifact }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
