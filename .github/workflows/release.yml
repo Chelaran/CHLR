@@ -112,6 +112,28 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: release/*
-          generate_release_notes: true
           draft: false
           prerelease: false
+          body: |
+            ## 🎉 Release v0.1.2
+            
+            ### 📦 Бинарники для всех платформ
+            
+            - **Linux**: `chlr-linux-amd64` и `chlr-linux-arm64`
+            - **macOS**: `chlr-darwin-amd64` и `chlr-darwin-arm64`
+            - **Windows**: `chlr-windows-amd64.exe`
+            
+            ### 🚀 Использование
+            
+            Скачайте бинарник для вашей платформы и используйте:
+            
+            ```bash
+            # Linux/macOS
+            chmod +x chlr-*
+            ./chlr-* --version
+            
+            # Windows
+            chlr-windows-amd64.exe --version
+            ```
+            
+            Подробная инструкция: [WINDOWS_INSTALL.md](WINDOWS_INSTALL.md)
